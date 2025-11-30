@@ -3,8 +3,8 @@
 Projeto desenvolvido para a disciplina de **Desenvolvimento Web**. O objetivo foi criar uma aplicação Front-End simulando a visão do consumidor de um cardápio digital, aplicando conceitos modernos de React e SPA (Single Page Application).
 
 ## 👥 Integrantes
-* **[NOME DO ALUNO 1]**
-* **[NOME DO ALUNO 2]**
+* **Enildo Martins**
+* **Maria Eduarda Goetz**
 
 ---
 
