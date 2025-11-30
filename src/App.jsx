@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react'; // 1. Importamos useEffect
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Carrinho from './pages/Carrinho';
 
 function App() {
-  // 2. CONTEÚDO 4: Local Storage
-  // Em vez de começar com [], começamos com uma função que busca os dados salvos
   const [carrinho, setCarrinho] = useState(() => {
     const dadosSalvos = localStorage.getItem('carrinho-cardapio');
     if (dadosSalvos) {
-      return JSON.parse(dadosSalvos); // Converte de texto (JSON) para Array
+      return JSON.parse(dadosSalvos);
     }
-    return []; // Se não tiver nada salvo, começa vazio
+    return [];
   });
 
-  // 3. CONTEÚDO 2: useEffect
-  // Toda vez que a variável 'carrinho' mudar, executamos este código
   useEffect(() => {
-    // Salvamos no Local Storage convertendo o array para texto (JSON)
     localStorage.setItem('carrinho-cardapio', JSON.stringify(carrinho));
-  }, [carrinho]); // O array [carrinho] indica a dependência que dispara o efeito
+  }, [carrinho]);
 
-  // Função para adicionar item
   const adicionarAoCarrinho = (prato) => {
-    // Verificação opcional: Evitar duplicados (se quiser)
     setCarrinho([...carrinho, prato]);
     alert(`${prato.nome} adicionado!`);
+  };
+
+  // --- NOVA FUNÇÃO AQUI ---
+  const removerDoCarrinho = (indexParaRemover) => {
+    // Filtra a lista, mantendo apenas os itens que NÃO são o que clicamos
+    const novoCarrinho = carrinho.filter((_, index) => index !== indexParaRemover);
+    setCarrinho(novoCarrinho);
   };
 
   return (
@@ -40,7 +40,13 @@ function App() {
         />
         <Route 
           path="/carrinho" 
-          element={<Carrinho carrinho={carrinho} />} 
+          element={
+            // Passamos a função nova para a página do Carrinho
+            <Carrinho 
+              carrinho={carrinho} 
+              removerDoCarrinho={removerDoCarrinho} 
+            />
+          } 
         />
       </Routes>
     </div>

@@ -1,56 +1,37 @@
 import React from 'react';
 
-// Recebemos 'prato' e a função 'adicionarAoCarrinho' como props
 function CardPrato({ prato, adicionarAoCarrinho }) {
   return (
-    <div style={styles.card}>
-      <img src={prato.imagem} alt={prato.nome} style={styles.img} />
-      <div style={styles.info}>
-        <h3>{prato.nome}</h3>
-        <p>{prato.descricao}</p>
-        <p><strong>R$ {prato.preco.toFixed(2)}</strong></p>
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+      {/* Imagem */}
+      <div className="h-48 overflow-hidden">
+        <img 
+          src={prato.imagem} 
+          alt={prato.nome} 
+          className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+        />
+      </div>
+
+      {/* Conteúdo */}
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{prato.nome}</h3>
+        <p className="text-gray-500 text-sm mb-4 flex-grow">{prato.descricao}</p>
         
-        {/* Ao clicar, chamamos a função passando o prato atual */}
-        <button 
-          onClick={() => adicionarAoCarrinho(prato)}
-          style={styles.botao}
-        >
-          Adicionar
-        </button>
+        <div className="flex items-center justify-between mt-auto">
+          <span className="text-green-600 font-bold text-lg">
+            R$ {prato.preco.toFixed(2)}
+          </span>
+          
+          <button 
+            onClick={() => adicionarAoCarrinho(prato)}
+            className="bg-brand-red text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 active:scale-95 transition-all"
+          >
+            Adicionar +
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
-// Estilos simples em linha (CSS-in-JS básico) para não gastar tempo com CSS agora
-const styles = {
-  card: {
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    padding: '10px',
-    width: '250px',
-    margin: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  img: {
-    width: '100%',
-    borderRadius: '4px'
-  },
-  info: {
-    marginTop: '10px'
-  },
-  botao: {
-    backgroundColor: '#28a745',
-    color: '#fff',
-    border: 'none',
-    padding: '8px',
-    cursor: 'pointer',
-    width: '100%',
-    marginTop: '10px',
-    borderRadius: '4px'
-  }
-};
 
 export default CardPrato;
